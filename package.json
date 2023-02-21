@@ -1,0 +1,19 @@
+{
+  "name": "migration-nb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "csv": "^6.2.7",
+    "csv-parse": "^5.3.5",
+    "dotenv": "^16.0.3",
+    "node-fetch": "^3.3.0"
+  }
+}
