@@ -17,19 +17,35 @@ else if(fs.existsSync("./imports.json")){
 async function getCsvData(){
   const records = []
   const parser = fs
-  .createReadStream("./blog.csv")
+  .createReadStream("./data.csv")
   .pipe(parse({
      columns: true , bom: true
   }));
   for await (const row of parser) {
+    console.log(row)
     const slug = row.name.split(' ').join('_').replace(/[^a-z0-9_]/gi,'').toLowerCase();
-    const request = await fetch(`https://${process.env.NATION_SLUG}.nationbuilder.com/api/v1/sites/${process.env.SITE_SLUG}/pages/blogs/${process.env.BLOG_ID}/posts?access_token=${process.env.API_TOKEN}`, {method: 'POST', body:`{"blog_post": {"name": "${row.name}", "status":"published", "slug": "${slug}", "content_after_flip": "${row.content}"}}`, headers: {'Content-Type': 'application/json'}})
-    const response = await request.json();
-    records.push({id: response.blog_post.id})
+    try{
+
+      const request = await fetch(`https://${process.env.NATION_SLUG}.nationbuilder.com/api/v1/sites/${process.env.SITE_SLUG}/pages/blogs/${process.env.BLOG_ID}/posts?access_token=${process.env.API_TOKEN}`, {method: 'POST', body:`{"blog_post": 
+        {"name": "${row.name}", 
+        "status":"published", 
+        "slug": "${slug}", 
+        "content_before_flip": "<p>${row.content_before_flip}</p>",
+        "published_at": "${row.published_at}"}
+      }`, 
+      headers: {'Content-Type': 'application/json'}})
+      
+      const response = await request.json();
+      console.log(response)
+      records.push({id: response.blog_post.id})
+      let data = await JSON.stringify(records);
+      fs.writeFileSync('imports.json', data);
+      console.log('all imported')
+    } catch(e){
+      console.log(e)
+    }
   }
-  let data = await JSON.stringify(records);
-  fs.writeFileSync('imports.json', data);
-  console.log('all imported')
+  
   return
 }
 

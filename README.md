@@ -5,7 +5,8 @@ This is a light weight nodejs script to migrate content from a csv file to Natio
 ## Requirements
 
 * nodeJS (only tested on v18)
-* valid csv file, should be place in root folder and should be called blog.csv (data-example.csv shows how the file should look like)
+* valid csv file, should be place in root folder and should be called data.csv (data-example.csv shows how the file should look like)
+* column names of the csv file should match the ones in the example (same name used on nation builder API)
 
 ## installation
 
@@ -29,7 +30,7 @@ Copy .env.sample and save as .env, replace all information with real data
 
 ## How it works
 
-The script reads blog.csv file. Parses the data and send the information to Nation Builder. 
+The script reads data.csv file. Parses the data and send the information to Nation Builder. 
 
 The importer script stores all ids of new posts created into a file called imports.js
 

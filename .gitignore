@@ -1,3 +1,5 @@
 .env
 node_modules/
 blog.csv
+data.csv
+.DS_Store
