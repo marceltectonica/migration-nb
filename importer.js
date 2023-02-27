@@ -31,6 +31,7 @@ async function getCsvData(){
         "status":"published", 
         "slug": "${slug}", 
         "content_before_flip": "<p>${row.content_before_flip}</p>",
+        "content_after_flip":"<p>${row.content_before_flip}</p>", 
         "published_at": "${row.published_at}"}
       }`, 
       headers: {'Content-Type': 'application/json'}})
